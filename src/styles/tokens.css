@@ -1,0 +1,167 @@
+/* ============================================================
+   INAIARAM DESIGN TOKENS
+   Complete design system with semantic tokens for both themes.
+   ============================================================ */
+
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-serif: "Playfair Display", "Georgia", serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Semantic color aliases */
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-deep: var(--terracotta-deep);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-sage: var(--sage);
+  --color-taupe: var(--taupe);
+
+  /* Spacing scale — 4px base */
+  --spacing-0: 0px;
+  --spacing-px: 1px;
+  --spacing-0\.5: 2px;
+  --spacing-1: 4px;
+  --spacing-1\.5: 6px;
+  --spacing-2: 8px;
+  --spacing-2\.5: 10px;
+  --spacing-3: 12px;
+  --spacing-3\.5: 14px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+
+  /* Border radius */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-pill: 999px;
+}
+
+/* ============================================================
+   LIGHT THEME (default)
+   ============================================================ */
+:root, [data-theme="light"] {
+  --bg: #FAF8F4;
+  --bg-alt: #F3EFE8;
+  --surface: #FFFFFF;
+  --surface-raised: #FBF9F5;
+  --line: #E8E2D8;
+  --line-strong: #D4CBC0;
+  --ink: #1C1917;
+  --ink-2: #44403C;
+  --ink-3: #78716C;
+  --terracotta: #B5522B;
+  --terracotta-deep: #93401F;
+  --gold: #B8860B;
+  --gold-soft: #D4A843;
+  --sage: #3D7A3A;
+  --taupe: #9A9186;
+}
+
+/* ============================================================
+   DARK THEME
+   ============================================================ */
+[data-theme="dark"] {
+  --bg: #0F0D0B;
+  --bg-alt: #151210;
+  --surface: #1A1714;
+  --surface-raised: #201C18;
+  --line: #2A2520;
+  --line-strong: #363029;
+  --ink: #F5EFE7;
+  --ink-2: #B4ABA2;
+  --ink-3: #7A7168;
+  --terracotta: #D4713C;
+  --terracotta-deep: #E88A56;
+  --gold: #D4A843;
+  --gold-soft: #8A7234;
+  --sage: #6DAF68;
+  --taupe: #6E665E;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES (raw tokens for non-Tailwind use)
+   ============================================================ */
+:root {
+  /* Typography scale */
+  --font-size-display-xl: clamp(2.5rem, 5vw, 4rem);
+  --font-size-display-l: clamp(1.875rem, 3.5vw, 2.75rem);
+  --font-size-display-m: clamp(1.5rem, 2.5vw, 2rem);
+  --font-size-h3: 1rem;
+  --font-size-body-l: 1rem;
+  --font-size-body: 0.9375rem;
+  --font-size-label-mono: 0.6875rem;
+  --font-size-meta-mono: 0.75rem;
+
+  /* Line heights */
+  --leading-display-xl: 1.1;
+  --leading-display-l: 1.15;
+  --leading-display-m: 1.25;
+  --leading-h3: 1.35;
+  --leading-body-l: 1.65;
+  --leading-body: 1.65;
+  --leading-label-mono: 1.4;
+  --leading-meta-mono: 1.5;
+
+  /* Letter spacing */
+  --tracking-tight: -0.02em;
+  --tracking-tight-md: -0.015em;
+  --tracking-mono: 0.12em;
+}
+
+/* ============================================================
+   THEME TRANSITION
+   ============================================================ */
+[data-theme] body,
+[data-theme] header,
+[data-theme] nav,
+[data-theme] footer {
+  transition: background-color 250ms ease, border-color 250ms ease, color 250ms ease;
+}
+
+/* ============================================================
+   FOCUS STYLES — visible, never removed
+   ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--bg-alt);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
+}

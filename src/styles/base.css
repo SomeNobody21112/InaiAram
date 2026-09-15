@@ -1,0 +1,232 @@
+/* ============================================================
+   BASE STYLES
+   Font loading, reset, and global typography
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ============================================================
+   RESET — must be inside @layer base so Tailwind utilities
+   in @layer utilities can override them
+   ============================================================ */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* NOTE: no scroll-behavior:smooth here. Smooth focus()-scrolls get canceled
+       by React re-renders, leaving keyboard users focused below the fold with
+       the page never scrolling. Instant is calmer AND reliable. */
+    /* Horizontal clip lives on html (the viewport scroller), NOT body:
+       overflow-x on body turns body into a scroll container, which breaks
+       browser-native focus() auto-scroll and scrollTo on some browsers. */
+    overflow-x: hidden;
+    /* Keep anchor targets and focus targets clear of the sticky header. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+    background-color: var(--bg);
+    min-height: 100vh;
+  }
+
+  img, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul, ol {
+    list-style: none;
+  }
+}
+
+/* ============================================================
+   TYPOGRAPHY CLASSES (unlayered — these are design-system
+   classes, not reset. Fine to be unlayered since they don't
+   conflict with Tailwind utilities.)
+   ============================================================ */
+.display-xl {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display-xl);
+  line-height: var(--leading-display-xl);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.display-l {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display-l);
+  line-height: var(--leading-display-l);
+  letter-spacing: var(--tracking-tight-md);
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.display-m {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display-m);
+  line-height: var(--leading-display-m);
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.h3 {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-h3);
+  line-height: var(--leading-h3);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.body-l {
+  font-size: var(--font-size-body-l);
+  line-height: var(--leading-body-l);
+  color: var(--ink-2);
+}
+
+.body {
+  font-size: var(--font-size-body);
+  line-height: var(--leading-body);
+  color: var(--ink-2);
+}
+
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label-mono);
+  line-height: var(--leading-label-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.meta-mono {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta-mono);
+  line-height: var(--leading-meta-mono);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   ACCENT WORD DEVICE
+   ============================================================ */
+.accent-word {
+  color: var(--terracotta);
+  font-style: italic;
+}
+
+/* ============================================================
+   SECTION PADDING
+   ============================================================ */
+.section-py {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+@media (min-width: 768px) {
+  .section-py {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-py {
+    padding-top: 112px;
+    padding-bottom: 112px;
+  }
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.max-w-content {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.max-w-text {
+  max-width: 640px;
+}
+
+.max-w-text-body {
+  max-width: 65ch;
+}
+
+/* ============================================================
+   SCROLLBAR (subtle)
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
+}
+
+/* ============================================================
+   OVERLAY MOTION — calm entrance/exit for dialogs and drawers.
+   Exit is handled with Tailwind transition classes; these keyframes
+   cover entrance. The global reduced-motion rule below collapses
+   both to near-instant.
+   ============================================================ */
+@keyframes overlay-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes drawer-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.overlay-panel {
+  animation: overlay-in 200ms ease-out;
+}
+.drawer-panel {
+  animation: drawer-in 200ms ease-out;
+}
+.overlay-backdrop {
+  animation: fade-in 200ms ease-out;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
